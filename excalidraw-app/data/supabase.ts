@@ -345,20 +345,20 @@ export const saveFilesToSupabase = async ({
         }
         
         // Log attempt to save file
-        console.log(`Attempting to save file ${id} to Supabase at ${prefix}/${id}`);
-        
-        const { data, error } = await supabase
-          .storage
+        console.log(
+          `Attempting to save file ${id} to Supabase at ${prefix}/${id}`,
+        );
+
+        const { error } = await supabase.storage
           .from("riff-files")
           .upload(`${prefix}/${id}`, buffer, {
             cacheControl: `${FILE_CACHE_MAX_AGE_SEC}`,
             contentType: MIME_TYPES.binary,
-            upsert: true
+            upsert: true,
           });
 
         if (error) {
-          // More detailed error logging
-          console.error(`Supabase storage error for file ${id}:`, error);
+          erroredFiles.set(id, true);
           errorMessages[id] = error.message || "Unknown storage error";
           throw new Error(error.message);
         }
@@ -385,7 +385,9 @@ export const saveFilesToSupabase = async ({
     }, new Map<FileId, true>());
   
   // Log summary of operation
-  console.log(`Supabase storage operation complete. Saved: ${savedFiles.length}, Errors: ${erroredFiles.size}`);
+  console.log(
+    `Supabase storage operation complete. Saved: ${savedFiles.length}, Errors: ${erroredFiles.size}`,
+  );
   if (erroredFiles.size > 0) {
     console.error("Supabase storage errors:", errorMessages);
   }
@@ -407,13 +409,12 @@ export const loadFilesFromSupabase = async (
   await Promise.all(
     [...new Set(filesIds)].map(async (id) => {
       try {
-        const { data, error } = await supabase
-          .storage
-          .from('riff-files')
+        const { data, error } = await supabase.storage
+          .from("riff-files")
           .download(`${prefix}/${id}`);
 
         if (error) {
-          throw new Error(error.message);
+          throw new Error(`Error downloading file ${id}: ${error.message}`);
         }
 
         const arrayBuffer = await data.arrayBuffer();
