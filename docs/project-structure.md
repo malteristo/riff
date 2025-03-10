@@ -9,271 +9,822 @@ This file contains a comprehensive tree diagram of the Riff project structure, g
 
 ```
 .
+├── .codesandbox
+│   ├── Dockerfile
+│   └── tasks.json
 ├── .cursor
-│   ├── mcp.json
-│   └── rules
-│       ├── .DS_Store
-│       ├── nextjs-best-practices.mdc
-│       ├── react-best-practices.mdc
-│       ├── supabase-best-practices.mdc
-│       ├── tailwindcss-best-practices.mdc
-│       └── typescript-best-practices.mdc
+│   └── mcp.json
+├── .dockerignore
+├── .editorconfig
+├── .env.development
+├── .env.production
+├── .eslintignore
+├── .eslintrc.json
+├── .gitattributes
 ├── .github
-│   ├── dependabot.yml
+│   ├── FUNDING.yml
+│   ├── assets
+│   │   ├── crowdin.svg
+│   │   ├── sentry.svg
+│   │   └── vercel.svg
 │   └── workflows
-│       ├── cd.yml
-│       ├── ci.yml
-│       └── tests.yml
+│       ├── autorelease-excalidraw.yml
+│       ├── autorelease-preview.yml
+│       ├── build-docker.yml
+│       ├── cancel.yml
+│       ├── lint.yml
+│       ├── locales-coverage.yml
+│       ├── publish-docker.yml
+│       ├── semantic-pr-title.yml
+│       ├── sentry-production.yml
+│       ├── size-limit.yml
+│       ├── test-coverage-pr.yml
+│       └── test.yml
 ├── .gitignore
 ├── .husky
 │   └── pre-commit
+├── .lintstagedrc.js
+├── .npmrc
 ├── .nvmrc
 ├── .prettierignore
-├── .prettierrc
 ├── .scripts
 │   └── update-structure.sh
-├── DEVELOPMENT.md
+├── .watchmanconfig
+├── CONTRIBUTING.md
+├── Dockerfile
+├── LICENSE
 ├── README.md
-├── app
-│   ├── canvas
-│   │   ├── [sessionId]
-│   │   │   └── page.tsx
-│   │   └── layout.tsx
-│   ├── components
-│   │   ├── CustomMainMenu.tsx
-│   │   ├── CustomSidebar.tsx
-│   │   ├── ExcalidrawCanvas.tsx
-│   │   ├── ExcalidrawLibraryManager.tsx
-│   │   ├── ExcalidrawWrapper.tsx
-│   │   ├── debugging-helper.tsx
-│   │   └── excalidraw
-│   │       └── StyledComponents.tsx
-│   ├── debug
-│   │   └── page.tsx
-│   ├── excalidraw-demo
-│   │   └── page.tsx
-│   ├── layout.tsx
-│   ├── page.tsx
-│   └── styles
-│       ├── excalidraw-theme.ts
-│       └── global.css
+├── SUPABASE_MIGRATION_REPORT.md
+├── crowdin.yml
+├── dev-docs
+│   ├── .gitignore
+│   ├── README.md
+│   ├── babel.config.js
+│   ├── docs
+│   │   ├── @excalidraw
+│   │   │   ├── excalidraw
+│   │   │   └── mermaid-to-excalidraw
+│   │   ├── assets
+│   │   │   ├── aggressive-block-fingerprint.png
+│   │   │   ├── block-fingerprint.png
+│   │   │   ├── brave-shield.png
+│   │   │   └── nerd-stats.png
+│   │   ├── codebase
+│   │   │   ├── frames.mdx
+│   │   │   └── json-schema.mdx
+│   │   └── introduction
+│   │       ├── contributing.mdx
+│   │       ├── development.mdx
+│   │       └── get-started.mdx
+│   ├── docusaurus.config.js
+│   ├── package.json
+│   ├── sidebars.js
+│   ├── src
+│   │   ├── components
+│   │   │   ├── Highlight.js
+│   │   │   └── Homepage
+│   │   ├── css
+│   │   │   └── custom.scss
+│   │   ├── initialData.js
+│   │   ├── pages
+│   │   │   ├── index.module.css
+│   │   │   ├── index.tsx
+│   │   │   └── markdown-page.md
+│   │   └── theme
+│   │       ├── MDXComponents.js
+│   │       └── ReactLiveScope
+│   ├── static
+│   │   ├── .nojekyll
+│   │   └── img
+│   │       ├── docusaurus.png
+│   │       ├── doremon.png
+│   │       ├── favicon.ico
+│   │       ├── favicon.png
+│   │       ├── logo.svg
+│   │       ├── og-image-2.png
+│   │       ├── og-image.png
+│   │       ├── pika.jpeg
+│   │       ├── undraw_add_files.svg
+│   │       ├── undraw_blank_canvas.svg
+│   │       ├── undraw_innovative.svg
+│   │       └── welcome-screen-overview.png
+│   ├── tsconfig.json
+│   ├── vercel.json
+│   └── yarn.lock
+├── docker-compose.yml
 ├── docs
 │   ├── app-flow-document.md
 │   ├── backend-structure.md
-│   ├── excalidraw-example-nextjs
 │   ├── frontend-guidelines.md
 │   ├── implementation-plan.md
 │   ├── project-milestones.md
 │   ├── project-requirements-document.md
 │   ├── project-structure.md
-│   ├── screenshots
-│   │   └── screenshot-2025-03-08T15-49-40-935Z.png
-│   ├── supabase-setup.md
 │   ├── tech-stack-api-document.md
 │   ├── testing-guide.md
-│   ├── testing-improvements.md
-│   ├── testing-mocks.md
-│   └── testing-strategy.md
-├── e2e
-│   ├── pages
-│   │   ├── auth.page.ts
-│   │   └── home.page.ts
-│   └── tests
-│       └── auth.spec.ts
-├── eslint.config.excalidraw.mjs
-├── eslint.config.mjs
-├── jest.config.ts
-├── jest.env.setup.js
-├── jest.setup.ts
-├── lib
-│   └── supabase.ts
-├── next.config.js
-├── package-lock.json
+│   ├── testing-strategy.md
+│   └── workflow-rules.md
+├── examples
+│   ├── with-nextjs
+│   │   ├── .gitignore
+│   │   ├── README.md
+│   │   ├── next.config.js
+│   │   ├── package.json
+│   │   ├── public
+│   │   │   └── images
+│   │   ├── src
+│   │   │   ├── app
+│   │   │   ├── common.scss
+│   │   │   ├── excalidrawWrapper.tsx
+│   │   │   └── pages
+│   │   ├── tsconfig.json
+│   │   ├── vercel.json
+│   │   └── yarn.lock
+│   └── with-script-in-browser
+│       ├── .codesandbox
+│       │   ├── Dockerfile
+│       │   └── tasks.json
+│       ├── .gitignore
+│       ├── components
+│       │   ├── CustomFooter.tsx
+│       │   ├── ExampleApp.scss
+│       │   ├── ExampleApp.tsx
+│       │   ├── MobileFooter.tsx
+│       │   └── sidebar
+│       ├── index.html
+│       ├── index.tsx
+│       ├── initialData.tsx
+│       ├── package.json
+│       ├── public
+│       │   └── images
+│       ├── tsconfig.json
+│       ├── utils.ts
+│       ├── vercel.json
+│       └── vite.config.mts
+├── excalidraw-app
+│   ├── App.tsx
+│   ├── CustomStats.tsx
+│   ├── ExcalidrawPlusIframeExport.tsx
+│   ├── app-jotai.ts
+│   ├── app-language
+│   │   ├── LanguageList.tsx
+│   │   ├── language-detector.ts
+│   │   └── language-state.ts
+│   ├── app_constants.ts
+│   ├── bug-issue-template.js
+│   ├── collab
+│   │   ├── Collab.tsx
+│   │   ├── CollabError.scss
+│   │   ├── CollabError.tsx
+│   │   └── Portal.tsx
+│   ├── components
+│   │   ├── AI.tsx
+│   │   ├── AppFooter.tsx
+│   │   ├── AppMainMenu.tsx
+│   │   ├── AppWelcomeScreen.tsx
+│   │   ├── DebugCanvas.tsx
+│   │   ├── EncryptedIcon.tsx
+│   │   ├── ExcalidrawPlusAppLink.tsx
+│   │   ├── ExportToExcalidrawPlus.tsx
+│   │   ├── GitHubCorner.tsx
+│   │   └── TopErrorBoundary.tsx
+│   ├── data
+│   │   ├── FileManager.ts
+│   │   ├── LocalData.ts
+│   │   ├── Locker.ts
+│   │   ├── SUPABASE_SETUP.md
+│   │   ├── firebase.ts
+│   │   ├── index.ts
+│   │   ├── localStorage.ts
+│   │   ├── supabase-setup.sql
+│   │   ├── supabase.ts
+│   │   └── tabSync.ts
+│   ├── debug.ts
+│   ├── global.d.ts
+│   ├── index.html
+│   ├── index.scss
+│   ├── index.tsx
+│   ├── package.json
+│   ├── sentry.ts
+│   ├── share
+│   │   ├── ShareDialog.scss
+│   │   └── ShareDialog.tsx
+│   ├── tests
+│   │   ├── LanguageList.test.tsx
+│   │   ├── MobileMenu.test.tsx
+│   │   ├── __snapshots__
+│   │   │   └── MobileMenu.test.tsx.snap
+│   │   └── collab.test.tsx
+│   ├── useHandleAppTheme.ts
+│   ├── vite-env.d.ts
+│   └── vite.config.mts
+├── firebase-project
+│   ├── .firebaserc
+│   ├── .gitignore
+│   ├── firebase.json
+│   ├── firestore.indexes.json
+│   ├── firestore.rules
+│   └── storage.rules
+├── fix-storage-permissions.sql
 ├── package.json
-├── playwright.config.ts
-├── postcss.config.mjs
-├── public
+├── packages
 │   ├── excalidraw
-│   │   ├── Assistant-Bold.woff2
-│   │   ├── Assistant-Medium.woff2
-│   │   ├── Assistant-Regular.woff2
-│   │   ├── Assistant-SemiBold.woff2
-│   │   ├── Cascadia.woff2
-│   │   ├── Virgil.woff2
-│   │   ├── locales
-│   │   │   ├── ar-SA-json-db7c644ccbeb85d54a47.js
-│   │   │   ├── az-AZ-json-08a6de50238dbb21926c.js
-│   │   │   ├── bg-BG-json-42fb0378311f3ade2627.js
-│   │   │   ├── bn-BD-json-9ad9e5ae95c4c66297b1.js
-│   │   │   ├── ca-ES-json-a6b2c18f7e85cfd11599.js
-│   │   │   ├── cs-CZ-json-ea03835d73f9b921f7c4.js
-│   │   │   ├── da-DK-json-a94944ac6fa9756d2fac.js
-│   │   │   ├── de-DE-json-d82053ab52357510811b.js
-│   │   │   ├── el-GR-json-4cbc2dbda5a5df636ee1.js
-│   │   │   ├── es-ES-json-7afb66536ee40d852fa2.js
-│   │   │   ├── eu-ES-json-671a4afcfce7b0a7660b.js
-│   │   │   ├── fa-IR-json-76b039039b043cc4280c.js
-│   │   │   ├── fi-FI-json-64c8902f10425e1b2e81.js
-│   │   │   ├── fr-FR-json-d16a471290ba26a6c66a.js
-│   │   │   ├── gl-ES-json-d11c7966c3c2f95756e0.js
-│   │   │   ├── he-IL-json-a7bc2a673875b2e655e1.js
-│   │   │   ├── hi-IN-json-4947c9dace32cc3c6eef.js
-│   │   │   ├── hu-HU-json-0419027d32efac73d518.js
-│   │   │   ├── id-ID-json-6542dd92ab54a2c1c48e.js
-│   │   │   ├── it-IT-json-ab410570df07304cb0ca.js
-│   │   │   ├── ja-JP-json-2cb067da0fb518e73564.js
-│   │   │   ├── kaa-json-4d0a4868835d0334a549.js
-│   │   │   ├── kab-KAB-json-0d400ba2836cc0752cd6.js
-│   │   │   ├── kk-KZ-json-2224f237cc93465f126f.js
-│   │   │   ├── km-KH-json-cbe8e2e8d26d30a3175c.js
-│   │   │   ├── ko-KR-json-c2387972637d47f15765.js
-│   │   │   ├── ku-TR-json-bafa8865ed7002bb249e.js
-│   │   │   ├── lt-LT-json-9b7e91a51b90ee551cad.js
-│   │   │   ├── lv-LV-json-f7f9363e42ee2e3a7c67.js
-│   │   │   ├── mr-IN-json-ad1359c30c334d05eee0.js
-│   │   │   ├── my-MM-json-3ba296b6fcf2a2197a7c.js
-│   │   │   ├── nb-NO-json-798d785698d467e76fcf.js
-│   │   │   ├── nl-NL-json-2cf913fe2f491c5d7075.js
-│   │   │   ├── nn-NO-json-aa607835ad9408789c5f.js
-│   │   │   ├── oc-FR-json-644a5eaa1311f70cb697.js
-│   │   │   ├── pa-IN-json-165c5c2760688033b2cc.js
-│   │   │   ├── pl-PL-json-35c1f168f53af24b657a.js
-│   │   │   ├── pt-BR-json-370215dc506c58ee3217.js
-│   │   │   ├── pt-PT-json-6f3d80656622a222b4e2.js
-│   │   │   ├── ro-RO-json-3c32b962880e225d3416.js
-│   │   │   ├── ru-RU-json-e1f4ed9d2d074f778304.js
-│   │   │   ├── si-LK-json-4921d4298abfa256fe6f.js
-│   │   │   ├── sk-SK-json-27b59d7e026675f929c4.js
-│   │   │   ├── sl-SI-json-efb839ef0456f5c72e6e.js
-│   │   │   ├── sv-SE-json-cfab3adbd37dd273c61e.js
-│   │   │   ├── ta-IN-json-2fa1854af68381c61913.js
-│   │   │   ├── th-TH-json-9a390d3cc7a7a6226b63.js
-│   │   │   ├── tr-TR-json-fc9b16e9dc2be2660439.js
-│   │   │   ├── uk-UA-json-82753e98dced302ac187.js
-│   │   │   ├── vi-VN-json-9c1c2a9fa9d6b5a58223.js
-│   │   │   ├── zh-CN-json-069c304b5011429be615.js
-│   │   │   ├── zh-HK-json-d9bf1e4e2d1f8650c680.js
-│   │   │   └── zh-TW-json-5a3fa7cacfa83c411d89.js
-│   │   ├── vendor-677e88ca78c86bddf13d.js
-│   │   └── vendor-677e88ca78c86bddf13d.js.LICENSE.txt
-│   ├── file.svg
-│   ├── globe.svg
-│   ├── next.svg
-│   ├── vercel.svg
-│   └── window.svg
-├── scripts
-│   └── copy-excalidraw-assets.sh
-├── setup-excalidraw-manual.sql
-├── sql
-│   ├── README.md
-│   ├── canvas-tables.sql
-│   ├── excalidraw-libraries-table.sql
-│   ├── excalidraw-tables.sql
-│   ├── migrations
-│   │   └── create_storage_bucket.sql
-│   ├── setup-canvas.sh
-│   ├── setup-excalidraw-manual.sql
-│   ├── setup-excalidraw.sh
-│   └── users-table.sql
-├── src
-│   ├── app
-│   │   ├── auth
-│   │   │   ├── AuthClient.tsx
-│   │   │   └── page.tsx
-│   │   ├── canvas
-│   │   │   ├── [sessionId]
-│   │   │   ├── not-found.tsx
-│   │   │   └── page.tsx
-│   │   ├── dashboard
-│   │   │   ├── DashboardClient.tsx
-│   │   │   └── page.tsx
-│   │   ├── error.tsx
-│   │   ├── favicon.ico
-│   │   ├── globals.css
-│   │   ├── layout.tsx
-│   │   ├── loading.tsx
-│   │   ├── not-found.tsx
-│   │   └── page.tsx
-│   ├── components
+│   │   ├── .gitignore
+│   │   ├── .size-limit.json
+│   │   ├── CHANGELOG.md
 │   │   ├── README.md
-│   │   ├── auth
-│   │   │   ├── AuthForm.tsx
-│   │   │   ├── ProtectedRoute.tsx
-│   │   │   ├── SignIn.tsx
-│   │   │   └── SignUp.tsx
-│   │   ├── canvas
-│   │   │   ├── Canvas.tsx
-│   │   │   ├── CanvasImpl.tsx
-│   │   │   ├── ImageComponent.tsx
-│   │   │   ├── ImageUploader.tsx
-│   │   │   └── TextComponent.tsx
-│   │   └── error
-│   │       ├── ApiErrorBoundary.tsx
-│   │       ├── AuthErrorBoundary.tsx
-│   │       ├── ErrorBoundary.tsx
-│   │       └── ErrorFallback.tsx
-│   ├── context
-│   │   ├── AuthContext.tsx
-│   │   └── README.md
-│   ├── hooks
-│   │   ├── README.md
-│   │   └── useErrorHandler.ts
-│   ├── pages
-│   │   └── api
-│   │       └── storage
-│   ├── services
-│   │   ├── README.md
-│   │   ├── api.ts
-│   │   └── supabase.ts
-│   ├── store
-│   │   └── canvasStore.ts
-│   ├── types
-│   │   ├── README.md
-│   │   └── canvas.ts
-│   └── utils
-│       └── errorHandler.ts
-├── tailwind.config.js
-├── tailwind.config.ts
-├── tests
-│   ├── README.md
-│   ├── components
-│   │   └── auth
-│   │       └── SignIn.test.tsx
-│   ├── features
-│   │   ├── authentication
-│   │   │   └── unit
-│   │   └── canvas
-│   │       ├── integration
-│   │       └── unit
-│   ├── fixtures
-│   │   ├── README.md
-│   │   ├── collections.ts
-│   │   ├── factories.ts
-│   │   └── index.ts
-│   ├── hooks
-│   │   └── useErrorHandler.test.ts
-│   ├── integration
-│   │   └── canvas
-│   │       └── CanvasStore.test.ts
-│   ├── services
-│   │   ├── canvas.test.ts
-│   │   └── supabase.test.ts
-│   ├── shared
+│   │   ├── actions
+│   │   │   ├── actionAddToLibrary.ts
+│   │   │   ├── actionAlign.tsx
+│   │   │   ├── actionBoundText.tsx
+│   │   │   ├── actionCanvas.tsx
+│   │   │   ├── actionClipboard.tsx
+│   │   │   ├── actionCropEditor.tsx
+│   │   │   ├── actionDeleteSelected.test.tsx
+│   │   │   ├── actionDeleteSelected.tsx
+│   │   │   ├── actionDistribute.tsx
+│   │   │   ├── actionDuplicateSelection.test.tsx
+│   │   │   ├── actionDuplicateSelection.tsx
+│   │   │   ├── actionElementLink.ts
+│   │   │   ├── actionElementLock.test.tsx
+│   │   │   ├── actionElementLock.ts
+│   │   │   ├── actionExport.tsx
+│   │   │   ├── actionFinalize.tsx
+│   │   │   ├── actionFlip.test.tsx
+│   │   │   ├── actionFlip.ts
+│   │   │   ├── actionFrame.ts
+│   │   │   ├── actionGroup.tsx
+│   │   │   ├── actionHistory.tsx
+│   │   │   ├── actionLinearEditor.tsx
+│   │   │   ├── actionLink.tsx
+│   │   │   ├── actionMenu.tsx
+│   │   │   ├── actionNavigate.tsx
+│   │   │   ├── actionProperties.test.tsx
+│   │   │   ├── actionProperties.tsx
+│   │   │   ├── actionSelectAll.ts
+│   │   │   ├── actionStyles.ts
+│   │   │   ├── actionTextAutoResize.ts
+│   │   │   ├── actionToggleGridMode.tsx
+│   │   │   ├── actionToggleObjectsSnapMode.tsx
+│   │   │   ├── actionToggleSearchMenu.ts
+│   │   │   ├── actionToggleStats.tsx
+│   │   │   ├── actionToggleViewMode.tsx
+│   │   │   ├── actionToggleZenMode.tsx
+│   │   │   ├── actionZindex.tsx
+│   │   │   ├── index.ts
+│   │   │   ├── manager.tsx
+│   │   │   ├── register.ts
+│   │   │   ├── shortcuts.ts
+│   │   │   └── types.ts
+│   │   ├── align.ts
+│   │   ├── analytics.ts
+│   │   ├── animated-trail.ts
+│   │   ├── animation-frame-handler.ts
+│   │   ├── appState.ts
+│   │   ├── binaryheap.ts
+│   │   ├── change.ts
+│   │   ├── charts.test.ts
+│   │   ├── charts.ts
+│   │   ├── clients.ts
+│   │   ├── clipboard.test.ts
+│   │   ├── clipboard.ts
+│   │   ├── colors.ts
+│   │   ├── components
+│   │   │   ├── Actions.scss
+│   │   │   ├── Actions.tsx
+│   │   │   ├── ActiveConfirmDialog.tsx
+│   │   │   ├── App.tsx
+│   │   │   ├── Avatar.scss
+│   │   │   ├── Avatar.tsx
+│   │   │   ├── BraveMeasureTextError.tsx
+│   │   │   ├── Button.scss
+│   │   │   ├── Button.tsx
+│   │   │   ├── ButtonIcon.scss
+│   │   │   ├── ButtonIcon.tsx
+│   │   │   ├── ButtonIconCycle.tsx
+│   │   │   ├── ButtonIconSelect.tsx
+│   │   │   ├── ButtonSelect.tsx
+│   │   │   ├── ButtonSeparator.tsx
+│   │   │   ├── Card.scss
+│   │   │   ├── Card.tsx
+│   │   │   ├── CheckboxItem.scss
+│   │   │   ├── CheckboxItem.tsx
+│   │   │   ├── ColorPicker
+│   │   │   ├── CommandPalette
+│   │   │   ├── ConfirmDialog.scss
+│   │   │   ├── ConfirmDialog.tsx
+│   │   │   ├── ContextMenu.scss
+│   │   │   ├── ContextMenu.tsx
+│   │   │   ├── DarkModeToggle.tsx
+│   │   │   ├── DefaultSidebar.test.tsx
+│   │   │   ├── DefaultSidebar.tsx
+│   │   │   ├── DiagramToCodePlugin
+│   │   │   ├── Dialog.scss
+│   │   │   ├── Dialog.tsx
+│   │   │   ├── DialogActionButton.scss
+│   │   │   ├── DialogActionButton.tsx
+│   │   │   ├── ElementLinkDialog.scss
+│   │   │   ├── ElementLinkDialog.tsx
+│   │   │   ├── ErrorDialog.tsx
+│   │   │   ├── ExcalidrawLogo.scss
+│   │   │   ├── ExcalidrawLogo.tsx
+│   │   │   ├── ExportDialog.scss
+│   │   │   ├── EyeDropper.scss
+│   │   │   ├── EyeDropper.tsx
+│   │   │   ├── FilledButton.scss
+│   │   │   ├── FilledButton.tsx
+│   │   │   ├── FixedSideContainer.scss
+│   │   │   ├── FixedSideContainer.tsx
+│   │   │   ├── FollowMode
+│   │   │   ├── FontPicker
+│   │   │   ├── HandButton.tsx
+│   │   │   ├── HelpButton.tsx
+│   │   │   ├── HelpDialog.scss
+│   │   │   ├── HelpDialog.tsx
+│   │   │   ├── HintViewer.scss
+│   │   │   ├── HintViewer.tsx
+│   │   │   ├── IconPicker.scss
+│   │   │   ├── IconPicker.tsx
+│   │   │   ├── ImageExportDialog.scss
+│   │   │   ├── ImageExportDialog.tsx
+│   │   │   ├── InitializeApp.tsx
+│   │   │   ├── InlineIcon.tsx
+│   │   │   ├── Island.scss
+│   │   │   ├── Island.tsx
+│   │   │   ├── JSONExportDialog.tsx
+│   │   │   ├── LaserPointerButton.tsx
+│   │   │   ├── LayerUI.scss
+│   │   │   ├── LayerUI.tsx
+│   │   │   ├── LibraryMenu.scss
+│   │   │   ├── LibraryMenu.tsx
+│   │   │   ├── LibraryMenuBrowseButton.tsx
+│   │   │   ├── LibraryMenuControlButtons.tsx
+│   │   │   ├── LibraryMenuHeaderContent.tsx
+│   │   │   ├── LibraryMenuItems.scss
+│   │   │   ├── LibraryMenuItems.tsx
+│   │   │   ├── LibraryMenuSection.tsx
+│   │   │   ├── LibraryUnit.scss
+│   │   │   ├── LibraryUnit.tsx
+│   │   │   ├── LoadingMessage.tsx
+│   │   │   ├── LockButton.tsx
+│   │   │   ├── MagicButton.tsx
+│   │   │   ├── MobileMenu.tsx
+│   │   │   ├── Modal.scss
+│   │   │   ├── Modal.tsx
+│   │   │   ├── OverwriteConfirm
+│   │   │   ├── Paragraph.tsx
+│   │   │   ├── PasteChartDialog.scss
+│   │   │   ├── PasteChartDialog.tsx
+│   │   │   ├── PenModeButton.tsx
+│   │   │   ├── Popover.scss
+│   │   │   ├── Popover.tsx
+│   │   │   ├── ProjectName.scss
+│   │   │   ├── ProjectName.tsx
+│   │   │   ├── PropertiesPopover.tsx
+│   │   │   ├── PublishLibrary.scss
+│   │   │   ├── PublishLibrary.tsx
+│   │   │   ├── QuickSearch.scss
+│   │   │   ├── QuickSearch.tsx
+│   │   │   ├── RadioGroup.scss
+│   │   │   ├── RadioGroup.tsx
+│   │   │   ├── Range.scss
+│   │   │   ├── Range.tsx
+│   │   │   ├── SVGLayer.scss
+│   │   │   ├── SVGLayer.tsx
+│   │   │   ├── ScrollableList.scss
+│   │   │   ├── ScrollableList.tsx
+│   │   │   ├── SearchMenu.scss
+│   │   │   ├── SearchMenu.tsx
+│   │   │   ├── Section.tsx
+│   │   │   ├── ShareableLinkDialog.scss
+│   │   │   ├── ShareableLinkDialog.tsx
+│   │   │   ├── Sidebar
+│   │   │   ├── Spinner.scss
+│   │   │   ├── Spinner.tsx
+│   │   │   ├── Stack.scss
+│   │   │   ├── Stack.tsx
+│   │   │   ├── Stats
+│   │   │   ├── Switch.scss
+│   │   │   ├── Switch.tsx
+│   │   │   ├── TTDDialog
+│   │   │   ├── TextField.scss
+│   │   │   ├── TextField.tsx
+│   │   │   ├── TextInput.scss
+│   │   │   ├── Toast.scss
+│   │   │   ├── Toast.tsx
+│   │   │   ├── ToolButton.tsx
+│   │   │   ├── ToolIcon.scss
+│   │   │   ├── Toolbar.scss
+│   │   │   ├── Tooltip.scss
+│   │   │   ├── Tooltip.tsx
+│   │   │   ├── Trans.test.tsx
+│   │   │   ├── Trans.tsx
+│   │   │   ├── UserList.scss
+│   │   │   ├── UserList.tsx
+│   │   │   ├── __snapshots__
+│   │   │   ├── canvases
+│   │   │   ├── dropdownMenu
+│   │   │   ├── footer
+│   │   │   ├── hoc
+│   │   │   ├── hyperlink
+│   │   │   ├── icons.tsx
+│   │   │   ├── live-collaboration
+│   │   │   ├── main-menu
+│   │   │   └── welcome-screen
+│   │   ├── constants.ts
+│   │   ├── context
+│   │   │   ├── tunnels.ts
+│   │   │   └── ui-appState.ts
+│   │   ├── css
+│   │   │   ├── app.scss
+│   │   │   ├── styles.scss
+│   │   │   ├── theme.scss
+│   │   │   └── variables.module.scss
+│   │   ├── css.d.ts
+│   │   ├── cursor.ts
+│   │   ├── data
+│   │   │   ├── EditorLocalStorage.ts
+│   │   │   ├── __snapshots__
+│   │   │   ├── ai
+│   │   │   ├── blob.ts
+│   │   │   ├── encode.ts
+│   │   │   ├── encryption.ts
+│   │   │   ├── filesystem.ts
+│   │   │   ├── image.ts
+│   │   │   ├── index.ts
+│   │   │   ├── json.ts
+│   │   │   ├── library.test.ts
+│   │   │   ├── library.ts
+│   │   │   ├── reconcile.ts
+│   │   │   ├── resave.ts
+│   │   │   ├── restore.ts
+│   │   │   ├── transform.test.ts
+│   │   │   ├── transform.ts
+│   │   │   ├── types.ts
+│   │   │   ├── url.test.tsx
+│   │   │   └── url.ts
+│   │   ├── deburr.ts
+│   │   ├── distribute.ts
+│   │   ├── editor-jotai.ts
+│   │   ├── element
+│   │   │   ├── ElementCanvasButtons.scss
+│   │   │   ├── ElementCanvasButtons.tsx
+│   │   │   ├── binding.ts
+│   │   │   ├── bounds.test.ts
+│   │   │   ├── bounds.ts
+│   │   │   ├── collision.ts
+│   │   │   ├── containerCache.ts
+│   │   │   ├── cropElement.ts
+│   │   │   ├── distance.ts
+│   │   │   ├── dragElements.ts
+│   │   │   ├── elbowArrow.test.tsx
+│   │   │   ├── elbowArrow.ts
+│   │   │   ├── elementLink.ts
+│   │   │   ├── embeddable.ts
+│   │   │   ├── flowchart.test.tsx
+│   │   │   ├── flowchart.ts
+│   │   │   ├── heading.ts
+│   │   │   ├── image.ts
+│   │   │   ├── index.ts
+│   │   │   ├── linearElementEditor.ts
+│   │   │   ├── mutateElement.ts
+│   │   │   ├── newElement.test.ts
+│   │   │   ├── newElement.ts
+│   │   │   ├── resizeElements.ts
+│   │   │   ├── resizeTest.ts
+│   │   │   ├── showSelectedShapeActions.ts
+│   │   │   ├── sizeHelpers.test.ts
+│   │   │   ├── sizeHelpers.ts
+│   │   │   ├── sortElements.test.ts
+│   │   │   ├── sortElements.ts
+│   │   │   ├── textElement.test.ts
+│   │   │   ├── textElement.ts
+│   │   │   ├── textMeasurements.ts
+│   │   │   ├── textWrapping.test.ts
+│   │   │   ├── textWrapping.ts
+│   │   │   ├── textWysiwyg.test.tsx
+│   │   │   ├── textWysiwyg.tsx
+│   │   │   ├── transformHandles.ts
+│   │   │   ├── typeChecks.test.ts
+│   │   │   ├── typeChecks.ts
+│   │   │   ├── types.ts
+│   │   │   └── utils.ts
+│   │   ├── emitter.ts
+│   │   ├── env.cjs
+│   │   ├── errors.ts
+│   │   ├── fonts
+│   │   │   ├── Assistant
+│   │   │   ├── Cascadia
+│   │   │   ├── ComicShanns
+│   │   │   ├── Emoji
+│   │   │   ├── ExcalidrawFontFace.ts
+│   │   │   ├── Excalifont
+│   │   │   ├── FontMetadata.ts
+│   │   │   ├── Fonts.ts
+│   │   │   ├── Helvetica
+│   │   │   ├── Liberation
+│   │   │   ├── Lilita
+│   │   │   ├── Nunito
+│   │   │   ├── Virgil
+│   │   │   ├── Xiaolai
+│   │   │   ├── fonts.css
+│   │   │   └── index.ts
+│   │   ├── fractionalIndex.ts
+│   │   ├── frame.test.tsx
+│   │   ├── frame.ts
+│   │   ├── gesture.ts
+│   │   ├── global.d.ts
+│   │   ├── groups.ts
+│   │   ├── history.ts
 │   │   ├── hooks
-│   │   │   └── useErrorHandler.test.ts
-│   │   └── services
-│   │       └── supabase.test.ts
+│   │   │   ├── useCallbackRefState.ts
+│   │   │   ├── useCopiedIndicator.ts
+│   │   │   ├── useCreatePortalContainer.ts
+│   │   │   ├── useEmitter.ts
+│   │   │   ├── useLibraryItemSvg.ts
+│   │   │   ├── useOutsideClick.ts
+│   │   │   ├── useScrollPosition.ts
+│   │   │   ├── useStable.ts
+│   │   │   ├── useStableCallback.ts
+│   │   │   └── useTransition.ts
+│   │   ├── i18n.ts
+│   │   ├── index-node.ts
+│   │   ├── index.tsx
+│   │   ├── keys.test.ts
+│   │   ├── keys.ts
+│   │   ├── laser-trails.ts
+│   │   ├── locales
+│   │   │   ├── README.md
+│   │   │   ├── ar-SA.json
+│   │   │   ├── az-AZ.json
+│   │   │   ├── bg-BG.json
+│   │   │   ├── bn-BD.json
+│   │   │   ├── ca-ES.json
+│   │   │   ├── cs-CZ.json
+│   │   │   ├── da-DK.json
+│   │   │   ├── de-DE.json
+│   │   │   ├── el-GR.json
+│   │   │   ├── en.json
+│   │   │   ├── es-ES.json
+│   │   │   ├── eu-ES.json
+│   │   │   ├── fa-IR.json
+│   │   │   ├── fi-FI.json
+│   │   │   ├── fr-FR.json
+│   │   │   ├── gl-ES.json
+│   │   │   ├── he-IL.json
+│   │   │   ├── hi-IN.json
+│   │   │   ├── hu-HU.json
+│   │   │   ├── id-ID.json
+│   │   │   ├── it-IT.json
+│   │   │   ├── ja-JP.json
+│   │   │   ├── kaa.json
+│   │   │   ├── kab-KAB.json
+│   │   │   ├── kk-KZ.json
+│   │   │   ├── km-KH.json
+│   │   │   ├── ko-KR.json
+│   │   │   ├── ku-TR.json
+│   │   │   ├── lt-LT.json
+│   │   │   ├── lv-LV.json
+│   │   │   ├── mr-IN.json
+│   │   │   ├── my-MM.json
+│   │   │   ├── nb-NO.json
+│   │   │   ├── nl-NL.json
+│   │   │   ├── nn-NO.json
+│   │   │   ├── oc-FR.json
+│   │   │   ├── pa-IN.json
+│   │   │   ├── percentages.json
+│   │   │   ├── pl-PL.json
+│   │   │   ├── pt-BR.json
+│   │   │   ├── pt-PT.json
+│   │   │   ├── ro-RO.json
+│   │   │   ├── ru-RU.json
+│   │   │   ├── si-LK.json
+│   │   │   ├── sk-SK.json
+│   │   │   ├── sl-SI.json
+│   │   │   ├── sv-SE.json
+│   │   │   ├── ta-IN.json
+│   │   │   ├── th-TH.json
+│   │   │   ├── tr-TR.json
+│   │   │   ├── uk-UA.json
+│   │   │   ├── vi-VN.json
+│   │   │   ├── zh-CN.json
+│   │   │   ├── zh-HK.json
+│   │   │   └── zh-TW.json
+│   │   ├── mermaid.test.ts
+│   │   ├── mermaid.ts
+│   │   ├── package.json
+│   │   ├── points.ts
+│   │   ├── polyfill.ts
+│   │   ├── pwacompat.d.ts
+│   │   ├── queue.test.ts
+│   │   ├── queue.ts
+│   │   ├── random.ts
+│   │   ├── react-app-env.d.ts
+│   │   ├── reactUtils.ts
+│   │   ├── renderer
+│   │   │   ├── helpers.ts
+│   │   │   ├── interactiveScene.ts
+│   │   │   ├── renderElement.ts
+│   │   │   ├── renderNewElementScene.ts
+│   │   │   ├── renderSnaps.ts
+│   │   │   ├── roundRect.ts
+│   │   │   ├── staticScene.ts
+│   │   │   └── staticSvgScene.ts
+│   │   ├── scene
+│   │   │   ├── Renderer.ts
+│   │   │   ├── Scene.ts
+│   │   │   ├── Shape.ts
+│   │   │   ├── ShapeCache.ts
+│   │   │   ├── comparisons.ts
+│   │   │   ├── export.ts
+│   │   │   ├── index.ts
+│   │   │   ├── normalize.ts
+│   │   │   ├── scroll.ts
+│   │   │   ├── scrollbars.ts
+│   │   │   ├── selection.test.ts
+│   │   │   ├── selection.ts
+│   │   │   ├── types.ts
+│   │   │   └── zoom.ts
+│   │   ├── shapes.tsx
+│   │   ├── snapping.ts
+│   │   ├── store.ts
+│   │   ├── subset
+│   │   │   ├── harfbuzz
+│   │   │   ├── subset-main.ts
+│   │   │   ├── subset-shared.chunk.ts
+│   │   │   ├── subset-worker.chunk.ts
+│   │   │   └── woff2
+│   │   ├── tests
+│   │   │   ├── App.test.tsx
+│   │   │   ├── MermaidToExcalidraw.test.tsx
+│   │   │   ├── __snapshots__
+│   │   │   ├── actionStyles.test.tsx
+│   │   │   ├── align.test.tsx
+│   │   │   ├── appState.test.tsx
+│   │   │   ├── binding.test.tsx
+│   │   │   ├── charts.test.tsx
+│   │   │   ├── clients.test.ts
+│   │   │   ├── clipboard.test.tsx
+│   │   │   ├── contextmenu.test.tsx
+│   │   │   ├── cropElement.test.tsx
+│   │   │   ├── data
+│   │   │   ├── dragCreate.test.tsx
+│   │   │   ├── elementLocking.test.tsx
+│   │   │   ├── excalidraw.test.tsx
+│   │   │   ├── export.test.tsx
+│   │   │   ├── fitToContent.test.tsx
+│   │   │   ├── fixtures
+│   │   │   ├── flip.test.tsx
+│   │   │   ├── fractionalIndex.test.ts
+│   │   │   ├── helpers
+│   │   │   ├── history.test.tsx
+│   │   │   ├── library.test.tsx
+│   │   │   ├── linearElementEditor.test.tsx
+│   │   │   ├── move.test.tsx
+│   │   │   ├── multiPointCreate.test.tsx
+│   │   │   ├── packages
+│   │   │   ├── queries
+│   │   │   ├── regressionTests.test.tsx
+│   │   │   ├── resize.test.tsx
+│   │   │   ├── rotate.test.tsx
+│   │   │   ├── scene
+│   │   │   ├── scroll.test.tsx
+│   │   │   ├── search.test.tsx
+│   │   │   ├── selection.test.tsx
+│   │   │   ├── shortcuts.test.tsx
+│   │   │   ├── test-utils.ts
+│   │   │   ├── tool.test.tsx
+│   │   │   ├── utils.test.ts
+│   │   │   ├── viewMode.test.tsx
+│   │   │   └── zindex.test.tsx
+│   │   ├── tsconfig.json
+│   │   ├── types.ts
+│   │   ├── utility-types.ts
+│   │   ├── utils.ts
+│   │   ├── visualdebug.ts
+│   │   ├── vite-env.d.ts
+│   │   ├── workers.ts
+│   │   └── zindex.ts
+│   ├── math
+│   │   ├── CHANGELOG.md
+│   │   ├── README.md
+│   │   ├── angle.ts
+│   │   ├── curve.test.ts
+│   │   ├── curve.ts
+│   │   ├── ellipse.test.ts
+│   │   ├── ellipse.ts
+│   │   ├── global.d.ts
+│   │   ├── index.ts
+│   │   ├── line.test.ts
+│   │   ├── line.ts
+│   │   ├── package.json
+│   │   ├── point.test.ts
+│   │   ├── point.ts
+│   │   ├── polygon.ts
+│   │   ├── range.test.ts
+│   │   ├── range.ts
+│   │   ├── rectangle.ts
+│   │   ├── segment.test.ts
+│   │   ├── segment.ts
+│   │   ├── triangle.ts
+│   │   ├── tsconfig.json
+│   │   ├── types.ts
+│   │   ├── utils.ts
+│   │   ├── vector.test.ts
+│   │   └── vector.ts
 │   └── utils
-│       ├── supabase-mocks.ts
-│       └── test-utils.tsx
+│       ├── CHANGELOG.md
+│       ├── README.md
+│       ├── __snapshots__
+│       │   ├── export.test.ts.snap
+│       │   └── utils.test.ts.snap
+│       ├── bbox.ts
+│       ├── collision.test.ts
+│       ├── collision.ts
+│       ├── export.test.ts
+│       ├── export.ts
+│       ├── geometry
+│       │   ├── geometry.test.ts
+│       │   └── shape.ts
+│       ├── global.d.ts
+│       ├── index.ts
+│       ├── package.json
+│       ├── test-utils.ts
+│       ├── tsconfig.json
+│       ├── utils.unmocked.test.ts
+│       ├── withinBounds.test.ts
+│       └── withinBounds.ts
+├── project-vision
+│   ├── app-flow-document.md
+│   ├── backend-structure.md
+│   ├── frontend-guidelines.md
+│   ├── implementation-plan.md
+│   ├── project-milestones.md
+│   ├── project-requirements-document.md
+│   ├── project-structure.md
+│   ├── tech-stack-api-document.md
+│   ├── testing-guide.md
+│   ├── testing-strategy.md
+│   └── workflow-rules.md
+├── public
+│   ├── Assistant-Regular.woff2
+│   ├── Cascadia.woff2
+│   ├── Virgil.woff2
+│   ├── _headers
+│   ├── android-chrome-192x192.png
+│   ├── android-chrome-512x512.png
+│   ├── apple-touch-icon.png
+│   ├── favicon-16x16.png
+│   ├── favicon-32x32.png
+│   ├── favicon.ico
+│   ├── favicon.svg
+│   ├── maskable_icon_x192.png
+│   ├── maskable_icon_x512.png
+│   ├── og-image-3.png
+│   ├── robots.txt
+│   ├── screenshots
+│   │   ├── collaboration.png
+│   │   ├── export.png
+│   │   ├── illustration.png
+│   │   ├── shapes.png
+│   │   ├── virtual-whiteboard.png
+│   │   └── wireframe.png
+│   └── service-worker.js
+├── scripts
+│   ├── autorelease.js
+│   ├── build-locales-coverage.js
+│   ├── build-node.js
+│   ├── build-version.js
+│   ├── buildDocs.js
+│   ├── buildMath.js
+│   ├── buildPackage.js
+│   ├── buildUtils.js
+│   ├── buildWasm.js
+│   ├── locales-coverage-description.js
+│   ├── prerelease.js
+│   ├── release.js
+│   ├── updateChangelog.js
+│   ├── wasm
+│   │   ├── hb-subset.wasm
+│   │   └── woff2.wasm
+│   └── woff2
+│       ├── assets
+│       │   ├── LiberationSans-Regular-2048.ttf
+│       │   ├── LiberationSans-Regular.ttf
+│       │   ├── NotoEmoji-Regular-2048.ttf
+│       │   ├── NotoEmoji-Regular.ttf
+│       │   └── Xiaolai-Regular.ttf
+│       ├── woff2-esbuild-plugins.js
+│       └── woff2-vite-plugins.js
+├── setupTests.ts
+├── test-storage.js
+├── test-supabase.js
 ├── tsconfig.json
-└── types
-    ├── canvas.ts
-    ├── excalidraw-helpers.ts
-    ├── excalidraw.ts
-    └── supabase.ts
+├── vercel.json
+├── vitest.config.mts
+└── yarn.lock
 
-65 directories, 199 files
+114 directories, 701 files
 ```
 
 </project_structure>

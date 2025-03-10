@@ -5,12 +5,18 @@ import { getDefaultAppState } from "@excalidraw/excalidraw/appState";
 import { ErrorDialog } from "@excalidraw/excalidraw/components/ErrorDialog";
 import { TopErrorBoundary } from "./components/TopErrorBoundary";
 import {
-  APP_NAME,
   EVENT,
+  APP_NAME,
   THEME,
   TITLE_TIMEOUT,
   VERSION_TIMEOUT,
+  DEFAULT_UI_OPTIONS,
+  DEFAULT_EXPORT_PADDING,
 } from "@excalidraw/excalidraw/constants";
+import {
+  STORAGE_KEYS,
+  STORAGE_PREFIXES,
+} from "./app_constants";
 import { loadFromBlob } from "@excalidraw/excalidraw/data/blob";
 import type {
   FileId,
@@ -44,9 +50,7 @@ import {
   isRunningInIframe,
 } from "@excalidraw/excalidraw/utils";
 import {
-  FIREBASE_STORAGE_PREFIXES,
   isExcalidrawPlusSignedUser,
-  STORAGE_KEYS,
   SYNC_BROWSER_TABS_TIMEOUT,
 } from "./app_constants";
 import type { CollabAPI } from "./collab/Collab";
@@ -75,7 +79,7 @@ import {
 import { updateStaleImageStatuses } from "./data/FileManager";
 import { newElementWith } from "@excalidraw/excalidraw/element/mutateElement";
 import { isInitializedImageElement } from "@excalidraw/excalidraw/element/typeChecks";
-import { loadFilesFromFirebase } from "./data/firebase";
+import { loadFilesFromSupabase } from "./data/supabase";
 import {
   LibraryIndexedDBAdapter,
   LibraryLocalStorageMigrationAdapter,
@@ -406,7 +410,7 @@ const ExcalidrawWrapper = () => {
       if (collabAPI?.isCollaborating()) {
         if (data.scene.elements) {
           collabAPI
-            .fetchImageFilesFromFirebase({
+            .fetchImageFilesFromSupabase({
               elements: data.scene.elements,
               forceFetchFiles: true,
             })
@@ -429,8 +433,8 @@ const ExcalidrawWrapper = () => {
           }, [] as FileId[]) || [];
 
         if (data.isExternalScene) {
-          loadFilesFromFirebase(
-            `${FIREBASE_STORAGE_PREFIXES.shareLinkFiles}/${data.id}`,
+          loadFilesFromSupabase(
+            `${STORAGE_PREFIXES.shareLinkFiles}/${data.id}`,
             data.key,
             fileIds,
           ).then(({ loadedFiles, erroredFiles }) => {

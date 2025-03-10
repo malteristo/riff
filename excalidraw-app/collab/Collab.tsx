@@ -32,7 +32,7 @@ import {
 import {
   CURSOR_SYNC_TIMEOUT,
   FILE_UPLOAD_MAX_BYTES,
-  FIREBASE_STORAGE_PREFIXES,
+  STORAGE_PREFIXES,
   INITIAL_SCENE_UPDATE_TIMEOUT,
   LOAD_IMAGES_TIMEOUT,
   WS_SUBTYPES,
@@ -48,13 +48,6 @@ import {
   getCollaborationLink,
   getSyncableElements,
 } from "../data";
-import {
-  isSavedToFirebase,
-  loadFilesFromFirebase,
-  loadFromFirebase,
-  saveFilesToFirebase,
-  saveToFirebase,
-} from "../data/firebase";
 import {
   importUsernameFromLocalStorage,
   saveUsernameToLocalStorage,
@@ -89,6 +82,15 @@ import type {
   ReconciledExcalidrawElement,
   RemoteExcalidrawElement,
 } from "@excalidraw/excalidraw/data/reconcile";
+import {
+  saveToSupabase,
+  loadFromSupabase,
+  loadFilesFromSupabase,
+  saveFilesToSupabase,
+  isSavedToSupabase,
+} from "../data/supabase";
+import type { AppState } from "@excalidraw/excalidraw/types";
+import { getDefaultAppState } from "@excalidraw/excalidraw/appState";
 
 export const collabAPIAtom = atom<CollabAPI | null>(null);
 export const isCollaboratingAtom = atom(false);
@@ -113,7 +115,8 @@ export interface CollabAPI {
   startCollaboration: CollabInstance["startCollaboration"];
   stopCollaboration: CollabInstance["stopCollaboration"];
   syncElements: CollabInstance["syncElements"];
-  fetchImageFilesFromFirebase: CollabInstance["fetchImageFilesFromFirebase"];
+  fetchImageFilesFromFirebase: CollabInstance["fetchImageFilesFromSupabase"];
+  fetchImageFilesFromSupabase: CollabInstance["fetchImageFilesFromSupabase"];
   setUsername: CollabInstance["setUsername"];
   getUsername: CollabInstance["getUsername"];
   getActiveRoomLink: CollabInstance["getActiveRoomLink"];
@@ -151,7 +154,7 @@ class Collab extends PureComponent<CollabProps, CollabState> {
           throw new AbortError();
         }
 
-        return loadFilesFromFirebase(`files/rooms/${roomId}`, roomKey, fileIds);
+        return loadFilesFromSupabase(`/files/rooms/${roomId}`, roomKey, fileIds);
       },
       saveFiles: async ({ addedFiles }) => {
         const { roomId, roomKey } = this.portal;
@@ -159,8 +162,8 @@ class Collab extends PureComponent<CollabProps, CollabState> {
           throw new AbortError();
         }
 
-        const { savedFiles, erroredFiles } = await saveFilesToFirebase({
-          prefix: `${FIREBASE_STORAGE_PREFIXES.collabFiles}/${roomId}`,
+        const { savedFiles, erroredFiles } = await saveFilesToSupabase({
+          prefix: `${STORAGE_PREFIXES.collabFiles}/${roomId}`,
           files: await encodeFilesForUpload({
             files: addedFiles,
             encryptionKey: roomKey,
@@ -179,7 +182,7 @@ class Collab extends PureComponent<CollabProps, CollabState> {
             },
             new Map(),
           ),
-          erroredFiles: erroredFiles.reduce(
+          erroredFiles: Array.from(erroredFiles.keys()).reduce(
             (acc: Map<FileId, BinaryFileData>, id) => {
               const fileData = addedFiles.get(id);
               if (fileData) {
@@ -226,7 +229,8 @@ class Collab extends PureComponent<CollabProps, CollabState> {
       onPointerUpdate: this.onPointerUpdate,
       startCollaboration: this.startCollaboration,
       syncElements: this.syncElements,
-      fetchImageFilesFromFirebase: this.fetchImageFilesFromFirebase,
+      fetchImageFilesFromFirebase: this.fetchImageFilesFromSupabase,
+      fetchImageFilesFromSupabase: this.fetchImageFilesFromSupabase,
       stopCollaboration: this.stopCollaboration,
       setUsername: this.setUsername,
       getUsername: this.getUsername,
@@ -290,7 +294,7 @@ class Collab extends PureComponent<CollabProps, CollabState> {
     if (
       this.isCollaborating() &&
       (this.fileManager.shouldPreventUnload(syncableElements) ||
-        !isSavedToFirebase(this.portal, syncableElements))
+        !isSavedToSupabase(this.portal, syncableElements))
     ) {
       // this won't run in time if user decides to leave the site, but
       //  the purpose is to run in immediately after user decides to stay
@@ -303,14 +307,25 @@ class Collab extends PureComponent<CollabProps, CollabState> {
   saveCollabRoomToFirebase = async (
     syncableElements: readonly SyncableExcalidrawElement[],
   ) => {
-    try {
-      const storedElements = await saveToFirebase(
-        this.portal,
-        syncableElements,
-        this.excalidrawAPI.getAppState(),
-      );
+    if (
+      !this.portal.roomId ||
+      !this.portal.roomKey ||
+      !this.portal.socket ||
+      !this.excalidrawAPI
+    ) {
+      return false;
+    }
 
-      this.resetErrorIndicator();
+    const elements = getSyncableElements(syncableElements);
+    const appState = this.excalidrawAPI.getAppState();
+
+    try {
+      // Simplified approach - directly save without complex payload creation
+      const storedElements = await saveToSupabase(
+        this.portal,
+        elements,
+        appState
+      );
 
       if (this.isCollaborating() && storedElements) {
         this.handleRemoteSceneUpdate(this._reconcileElements(storedElements));
@@ -404,7 +419,7 @@ class Collab extends PureComponent<CollabProps, CollabState> {
     }
   };
 
-  private fetchImageFilesFromFirebase = async (opts: {
+  private fetchImageFilesFromSupabase = async (opts: {
     elements: readonly ExcalidrawElement[];
     /**
      * Indicates whether to fetch files that are errored or pending and older
@@ -424,7 +439,7 @@ class Collab extends PureComponent<CollabProps, CollabState> {
           (opts.forceFetchFiles
             ? element.status !== "pending" ||
               Date.now() - element.updated > 10000
-            : element.status === "saved")
+            : true)
         );
       })
       .map((element) => (element as InitializedExcalidrawImageElement).fileId);
@@ -703,7 +718,7 @@ class Collab extends PureComponent<CollabProps, CollabState> {
       this.excalidrawAPI.resetScene();
 
       try {
-        const elements = await loadFromFirebase(
+        const elements = await loadFromSupabase(
           roomLinkData.roomId,
           roomLinkData.roomKey,
           this.portal.socket,
@@ -755,7 +770,7 @@ class Collab extends PureComponent<CollabProps, CollabState> {
 
   private loadImageFiles = throttle(async () => {
     const { loadedFiles, erroredFiles } =
-      await this.fetchImageFilesFromFirebase({
+      await this.fetchImageFilesFromSupabase({
         elements: this.excalidrawAPI.getSceneElementsIncludingDeleted(),
       });
 
@@ -920,8 +935,14 @@ class Collab extends PureComponent<CollabProps, CollabState> {
   };
 
   syncElements = (elements: readonly OrderedExcalidrawElement[]) => {
-    this.broadcastElements(elements);
-    this.queueSaveToFirebase();
+    if (
+      this.isCollaborating() &&
+      elements.length > 0 &&
+      !isSavedToSupabase(this.portal, getSyncableElements(elements))
+    ) {
+      this.queueBroadcastAllElements();
+      this.saveCollabRoomToFirebase(getSyncableElements(elements));
+    }
   };
 
   queueBroadcastAllElements = throttle(() => {
@@ -940,13 +961,11 @@ class Collab extends PureComponent<CollabProps, CollabState> {
 
   queueSaveToFirebase = throttle(
     () => {
-      if (this.portal.socketInitialized) {
-        this.saveCollabRoomToFirebase(
-          getSyncableElements(
-            this.excalidrawAPI.getSceneElementsIncludingDeleted(),
-          ),
-        );
-      }
+      this.saveCollabRoomToFirebase(
+        getSyncableElements(
+          this.excalidrawAPI.getSceneElementsIncludingDeleted(),
+        ),
+      );
     },
     SYNC_FULL_SCENE_INTERVAL_MS,
     { leading: false },
@@ -1016,3 +1035,17 @@ if (import.meta.env.MODE === ENV.TEST || import.meta.env.DEV) {
 export default Collab;
 
 export type TCollabClass = Collab;
+
+interface CollabPersistenceData {
+  elements: readonly SyncableExcalidrawElement[];
+  appState: AppState;
+}
+
+const isExcalidrawPlusFile = (element: ExcalidrawElement, appState: AppState) => {
+  return (
+    isInitializedImageElement(element) &&
+    element.status === "saved" &&
+    element.fileId &&
+    (appState as any).files?.[element.fileId]?.dataURL?.includes("plus.excalidraw.com")
+  );
+};

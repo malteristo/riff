@@ -2,7 +2,7 @@ import React from "react";
 import { Card } from "@excalidraw/excalidraw/components/Card";
 import { ToolButton } from "@excalidraw/excalidraw/components/ToolButton";
 import { serializeAsJSON } from "@excalidraw/excalidraw/data/json";
-import { loadFirebaseStorage, saveFilesToFirebase } from "../data/firebase";
+import supabase, { saveFilesToSupabase } from "../data/supabase";
 import type {
   FileId,
   NonDeletedExcalidrawElement,
@@ -21,7 +21,6 @@ import {
 import { isInitializedImageElement } from "@excalidraw/excalidraw/element/typeChecks";
 import { FILE_UPLOAD_MAX_BYTES } from "../app_constants";
 import { encodeFilesForUpload } from "../data/FileManager";
-import { uploadBytes, ref } from "firebase/storage";
 import { MIME_TYPES } from "@excalidraw/excalidraw/constants";
 import { trackEvent } from "@excalidraw/excalidraw/analytics";
 import { getFrame } from "@excalidraw/excalidraw/utils";
@@ -33,8 +32,6 @@ export const exportToExcalidrawPlus = async (
   files: BinaryFiles,
   name: string,
 ) => {
-  const storage = await loadFirebaseStorage();
-
   const id = `${nanoid(12)}`;
 
   const encryptionKey = (await generateEncryptionKey())!;
@@ -50,13 +47,22 @@ export const exportToExcalidrawPlus = async (
     },
   );
 
-  const storageRef = ref(storage, `/migrations/scenes/${id}`);
-  await uploadBytes(storageRef, blob, {
-    customMetadata: {
-      data: JSON.stringify({ version: 2, name }),
-      created: Date.now().toString(),
-    },
-  });
+  const { data, error } = await supabase
+    .storage
+    .from('riff-files')
+    .upload(`/migrations/scenes/${id}`, blob, {
+      contentType: MIME_TYPES.binary,
+      upsert: true,
+      metadata: {
+        data: JSON.stringify({ version: 2, name }),
+        created: Date.now().toString(),
+      },
+    });
+    
+  if (error) {
+    console.error("Error uploading to Supabase:", error);
+    throw new Error(error.message);
+  }
 
   const filesMap = new Map<FileId, BinaryFileData>();
   for (const element of elements) {
@@ -72,7 +78,7 @@ export const exportToExcalidrawPlus = async (
       maxBytes: FILE_UPLOAD_MAX_BYTES,
     });
 
-    await saveFilesToFirebase({
+    await saveFilesToSupabase({
       prefix: `/migrations/files/scenes/${id}`,
       files: filesToUpload,
     });
